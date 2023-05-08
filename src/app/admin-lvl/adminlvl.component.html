@@ -1,0 +1,164 @@
+<!-- <div id="oas_reading" class="oas-reading"> -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header"><strong>{{'create_admin_level' | translate}}</strong></div>
+            <div class="card-body">
+                <form class="form-signin" [formGroup]="adminlvlForm" (ngSubmit)="adminFormSubmit()" >
+                    <input type="hidden" class="form-control" name="levelid" formControlName="levelid">
+                    <div class="row input-group col-md-12">
+                        <div class="col-md-4 forRequired">
+                            <label>{{'_code' | translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="code" formControlName="code">
+                            <span style="color: red;"
+                                *ngIf="adminlvlForm.controls.code && adminlvlForm.controls.code.invalid && adminlvlForm.controls.code.touched">{{'required_field' | translate}}</span>
+                        </div>
+                    </div><br>
+
+                    <div class="row input-group col-md-12">
+                        <div class="col-md-4 forRequired">
+                            <label>{{'_level' | translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="levelorder" formControlName="levelorder">
+                            <span style="color: red;"
+                                *ngIf="adminlvlForm.controls.levelorder && adminlvlForm.controls.levelorder.invalid && adminlvlForm.controls.levelorder.touched">{{'required_field' | translate}}</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row input-group col-md-12">
+                        <div class="col-md-4">
+                            <label>{{'name_en' | translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="levelnameen" formControlName="levelnameen">
+                            <span style="color: red;"
+                                *ngIf="adminlvlForm.controls.levelnameen && adminlvlForm.controls.levelnameen.invalid && adminlvlForm.controls.levelnameen.touched">{{'required_field' | translate}}</span>
+                        </div>
+                    </div><br>
+                    <div class="row input-group col-md-12">
+                        <div class="col-md-4 forRequired">
+                            <label>{{'name_np' | translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="levelnamenp" formControlName="levelnamenp">
+                            <span style="color: red;"
+                                *ngIf="adminlvlForm.controls.levelnamenp && adminlvlForm.controls.levelnamenp.invalid && adminlvlForm.controls.levelnamenp.touched">{{'required_field' | translate}}</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row input-group col-md-12">
+                        <div class="col-md-4">
+                            <label>{{'name_lc' | translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="levelnamelc" formControlName="levelnamelc">
+                            <span style="color: red;"
+                                *ngIf="adminlvlForm.controls.levelnamelc && adminlvlForm.controls.levelnamelc.invalid && adminlvlForm.controls.levelnamelc.touched">{{'required_field' | translate}}</span>
+                        </div>
+                    </div><br>
+
+                    <div class="row input-group col-md-12">
+                        <div class="col-md-4 forRequired">
+                            <label>{{'_approved' | translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control" name="approved" formControlName="approved">
+                                <option value="1" selected="selected">{{'_yes' | translate}}</option>
+                                <option value="0">{{'_no' | translate}}</option>
+                            </select>
+
+                        </div>
+                    </div><br>
+                    <div class="row input-group col-md-12">
+                        <div class="col-md-4 forRequired">
+                            <label>{{'_disabled' | translate}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control" name="disabled" formControlName="disabled">
+                                <option value="0" selected>{{'_no' | translate}}</option>
+                                <option value="1">{{'_yes' | translate}}</option>
+                            </select>
+
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-primary px-4">{{"_save" | translate }}</button>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button type="button" (click)= "resetForm()" class="btn btn-danger px-4">{{'_reset' | translate}}</button>
+                        </div>
+                    </div>
+
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+        <div class="col-md-6">
+            <div class="card">
+    
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> {{'list_admin_level' | translate}}
+                </div>
+    
+                <div class="card-body">
+    
+    
+                    <form class="form-srch" [formGroup]="srchForm">
+
+                        <div class="input-group">
+                         
+                            <input class="form-control" placeholder="{{'_search' | translate}}" id="srch_term" name="srch_term" type="text" formControlName="srch_term" (keyup)="search()">
+        
+                            <button class="btn btn-default" type="button" (click)="search()"><i class="fa fa-search"></i></button>
+        
+                        </div>
+                    </form>
+        
+                    <hr />
+    
+                    <table class="table table-bordered table-striped table-sm tbl-sortable">
+                        <thead>
+                            <tr>
+                                <th>{{'_code' | translate}}</th>
+                                <th>{{'name_en' | translate}}</th>
+                                <th>{{'name_np' | translate}}</th>
+                                <th>{{'_action' | translate}}</th>
+    
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let item of lists; let i = index; "><td>{{item.code}}</td><td>{{item.levelnameen}}</td><td>{{item.levelnamenp}}</td><td><a (click)="getUpdateItem(item.levelid)" href="javascript:void(0)"><i class="bi bi-pencil-square"></i></a>&nbsp;&nbsp;<a href="javascript:void(0)" (click)="deleteItem(item.levelid)" ><i class="bi bi-trash3"></i></a></td></tr>
+        
+                        </tbody>
+                    </table>
+                    <form [formGroup]="srchForm">
+                        <div class="row" style="float:right">
+                            <div class="col-md-12 smallbr">
+                                {{'no_of_entries' | translate}} <select name="entries" id="entries" formControlName="entries" (change)="search()">
+                                    <option value="10">{{"_10" | translate}}</option>
+                                    <option value="20">{{'_20' | translate}}</option>
+                                    <option value="50">{{'_50' | translate}}</option>
+                                    <option value="100">{{'_100' | translate}}</option>
+                                </select> &nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="col-md-6">
+                        <pagination [rotate]="true" [maxSize]="5" [totalItems]="pagination.total" [(ngModel)]="pagination.currentPage" [boundaryLinks]="true" [itemsPerPage]="pagination.perPage" (pageChanged)="paginatedData($event)"
+                        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+                        ></pagination>
+                      </div>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- </div> -->
